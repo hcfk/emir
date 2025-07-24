@@ -1,0 +1,46 @@
+.table-container {
+  overflow-x: auto; // Allow horizontal scrolling for wide tables
+  .rdt_Table {
+    width: 100%; // Ensure the table fits the container
+  }
+
+  .rdt_TableRow {
+    &:hover {
+      background-color: #f9f9f9; // Light hover effect
+      transition: background-color 0.2s ease-in-out;
+    }
+  }
+}
+
+// Customize tab list appearance
+.custom-tab-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+// Customize tab appearance
+.custom-tab {
+  font-size: 1.2rem; /* Larger font size */
+  font-weight: bold; /* Bold text */
+  padding: 10px 20px;
+}
+
+.custom-tab:hover {
+  cursor: pointer;
+  color: #007bff; /* Optional: change color on hover */
+}
+
+// Adjust table column cells to handle overflow text
+.rdt_TableCell {
+  white-space: nowrap;
+  //overflow: hidden;
+  text-overflow: ellipsis; // Truncate text with ellipsis
+  max-width: 150px; // Adjust this width as necessary
+}
+
+// For wider screens, set max-widths
+@media (min-width: 1200px) {
+  .rdt_TableCell {
+    max-width: 200px; // Increase the max-width for larger screens
+  }
+}

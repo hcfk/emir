@@ -1,0 +1,94 @@
+// src/scss/vendors/YouTubeQueue.scss
+
+.youtube-link-queue-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .file-input-button {
+    width: 100%;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .form-control {
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .file-name {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+
+  .progress {
+    height: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+
+    .progress-bar {
+      background-color: #007bff;
+    }
+  }
+
+  .queue-type-radio-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    label {
+      font-weight: 500;
+      margin-right: 10px;
+      color: #555;
+    }
+
+    input[type='radio'] {
+      margin-right: 5px;
+    }
+  }
+
+  .submit-button {
+    width: 100%;
+    font-weight: bold;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    &:disabled {
+      background-color: #d4d4d4;
+      color: #8a8a8a;
+    }
+  }
+}
+
+// Customize Toast notifications
+.Toastify__toast-container {
+  font-size: 1rem;
+}
+
+.Toastify__toast--success {
+  background-color: #28a745;
+}
+
+.Toastify__toast--error {
+  background-color: #dc3545;
+}

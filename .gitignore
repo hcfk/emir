@@ -1,0 +1,17 @@
+# Android
+AndroidApp/.gradle/
+AndroidApp/.idea/
+AndroidApp/local.properties
+AndroidApp/build/
+
+# Node
+portal/server/node_modules/
+portal/server/.env
+
+# React
+portal/client/node_modules/
+portal/client/.env
+
+# OS & IDE
+.DS_Store
+*.log

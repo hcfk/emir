@@ -1,0 +1,82 @@
+.file-upload-container {
+  border: 1px solid var(--cui-border-color, #e7e7e7);
+  border-radius: 8px;
+  background-color: var(--cui-tertiary-bg, #f9f9f9);
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: var(--cui-body-color, #333);
+
+  .custom-file-input-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .file-input-button {
+    border: 1px solid var(--cui-primary-border, #007bff);
+    background-color: var(--cui-primary-bg, #007bff);
+    color: var(--cui-primary-color, #fff);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+
+    &:hover {
+      background-color: var(--cui-primary-hover-bg, #0056b3);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    }
+  }
+
+  .file-name {
+    border: 1px solid var(--cui-border-color, #ced4da);
+    background-color: var(--cui-input-bg, #fff);
+    color: var(--cui-body-color, #333); // Ensure text color contrasts with the background
+    border-radius: 4px;
+    padding: 0.5rem;
+    flex: 1;
+    margin-top: 0.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    .c-form-check-input {
+      margin-right: 0.5rem;
+    }
+
+    .c-form-check-label {
+      color: var(--cui-body-color, #333);
+      font-weight: 500;
+    }
+  }
+
+  .upload-message {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+
+    // Success message styling
+    &.success {
+      color: var(--cui-success-color, #155724);
+      background-color: var(--cui-success-bg, #d4edda);
+      border: 1px solid var(--cui-success-border, #c3e6cb);
+    }
+
+    // Error message styling
+    &.error {
+      color: var(--cui-danger-color, #721c24);
+      background-color: var(--cui-danger-bg, #f8d7da);
+      border: 1px solid var(--cui-danger-border, #f5c6cb);
+    }
+  }
+}

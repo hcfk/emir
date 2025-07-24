@@ -1,0 +1,29 @@
+{
+  "short_name": "VisualDataCore",
+  "name": "Visual Data Core – Modular Data Visualization Dashboard",
+  "description": "Visual Data Core is an open-source, modular dashboard platform for real-time and historical data visualization.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48 72x72 96x96 144x144 192x192 256x256 384x384 512x512",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "VisualDataCore192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "VisualDataCore512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#007BFF",
+  "orientation": "portrait-primary",
+  "scope": ".",
+  "lang": "en"
+}

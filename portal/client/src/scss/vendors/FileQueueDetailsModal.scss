@@ -1,0 +1,14 @@
+.file-link {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.file-link:hover {
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
+}
