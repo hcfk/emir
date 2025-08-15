@@ -1,0 +1,56 @@
+name: CI + Deploy (Self-Hosted)
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: [self-hosted, linux, test]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node (for both api & web)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable Corepack (pnpm/yarn support)
+        run: corepack enable
+
+      # Quick CI feedback (optional tests)
+      - name: API - install & test
+        if: ${{ hashFiles('api/package.json') != '' }}
+        working-directory: api
+        run: |
+          if [ -f pnpm-lock.yaml ]; then pnpm i --frozen-lockfile && pnpm test --if-present; \
+          elif [ -f yarn.lock ]; then yarn install --frozen-lockfile && yarn test --if-present; \
+          else npm ci && npm test --if-present; fi
+
+      - name: Web - install & test
+        if: ${{ hashFiles('web/package.json') != '' }}
+        working-directory: web
+        run: |
+          if [ -f pnpm-lock.yaml ]; then pnpm i --frozen-lockfile && pnpm test --if-present; \
+          elif [ -f yarn.lock ]; then yarn install --frozen-lockfile && yarn test --if-present; \
+          else npm ci && npm test --if-present; fi
+
+      # Stage a new release folder on the same server (runner is on the server)
+      - name: Stage release
+        run: |
+          set -e
+          DEPLOY_PATH="/var/www/emir-portal"
+          TS=$(date +%Y%m%d%H%M%S)
+          mkdir -p "$DEPLOY_PATH/releases/$TS"
+          rsync -a --delete --exclude ".git" --exclude ".github" ./ "$DEPLOY_PATH/releases/$TS/"
+          cp scripts/deploy_release.sh "$DEPLOY_PATH/releases/$TS/deploy.sh"
+          chmod +x "$DEPLOY_PATH/releases/$TS/deploy.sh"
+          echo "DEPLOY_PATH=$DEPLOY_PATH" >> $GITHUB_ENV
+          echo "TS=$TS" >> $GITHUB_ENV
+
+      - name: Activate release
+        run: |
+          bash "$DEPLOY_PATH/releases/$TS/deploy.sh"
