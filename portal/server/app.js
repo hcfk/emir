@@ -41,7 +41,7 @@ export const sequelize = new Sequelize(
 )
 
 // Test Sequelize connection
-(async () => {
+;(async () => {
   try {
     await sequelize.authenticate();
     console.log('✅ Connected to PostgreSQL + PostGIS via Sequelize');

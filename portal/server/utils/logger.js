@@ -1,5 +1,6 @@
 import { createLogger, format, transports } from 'winston'
 import path from 'path'
+import fs from 'fs'
 import dotenv from 'dotenv'
 import { fileURLToPath } from 'url'
 
@@ -12,6 +13,13 @@ const __dirname = path.dirname(__filename)
 const logDirectory = process.env.LOG_DIR
   ? path.resolve(__dirname, '..', process.env.LOG_DIR)
   : path.resolve(__dirname, '..', 'logs')
+
+// Ensure log directory exists
+try {
+  if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory, { recursive: true })
+} catch (_) {
+  // ignore directory creation errors; console transport will still work
+}
 
 const logger = createLogger({
   level: 'info',
