@@ -3,6 +3,17 @@ import fs from 'fs'
 import { fileURLToPath } from 'url'
 import logger from '../utils/logger.js'
 
+// Config: allow disabling notifications via env
+const parseBool = (v) => {
+  if (typeof v !== 'string') return undefined
+  const s = v.trim().toLowerCase()
+  if (['1', 'true', 'yes', 'on'].includes(s)) return true
+  if (['0', 'false', 'no', 'off'].includes(s)) return false
+  return undefined
+}
+const envToggle = parseBool(process.env.NOTIFICATIONS_ENABLED)
+const notificationsEnabled = envToggle !== undefined ? envToggle : process.env.NODE_ENV === 'production'
+
 // Lazy import + init to avoid crashing when Firebase is not configured
 let admin = null
 let firebaseReady = false
@@ -24,6 +35,10 @@ const readServiceAccount = () => {
 }
 
 const ensureFirebase = async () => {
+  if (!notificationsEnabled) {
+    logger.info('Notifications are disabled by configuration')
+    return false
+  }
   if (firebaseReady) return true
   const serviceAccount = readServiceAccount()
   if (!serviceAccount) {
@@ -54,7 +69,7 @@ const ensureFirebase = async () => {
 
 const sendPushNotification = async (fcmToken, payload) => {
   const ok = await ensureFirebase()
-  if (!ok) throw new Error('Firebase is not configured')
+  if (!ok) return 'disabled'
   const message = {
     token: fcmToken,
     notification: { title: payload.title, body: payload.body },
@@ -71,4 +86,4 @@ const sendPushNotification = async (fcmToken, payload) => {
 }
 
 export default { sendPushNotification }
-
+export const isEnabled = () => notificationsEnabled

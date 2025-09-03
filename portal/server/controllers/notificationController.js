@@ -1,4 +1,4 @@
-import firebaseService from '../services/firebaseService.js';
+import firebaseService, { isEnabled as notificationsEnabled } from '../services/firebaseService.js';
 import logger from '../utils/logger.js';
 
 const sendNotification = async (req, res) => {

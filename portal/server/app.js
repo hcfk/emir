@@ -40,8 +40,16 @@ export const sequelize = new Sequelize(
   }
 )
 
-// Test Sequelize connection
-;(async () => {
+// Test Sequelize connection (Top‑Level Await)
+try {
+  await sequelize.authenticate()
+  console.log('✓ Connected to PostgreSQL via Sequelize')
+} catch (error) {
+  console.error('✗ PostgreSQL connection error:', error)
+  process.exit(1)
+}
+// Legacy IIFE (disabled)
+/* (async () => {
   try {
     await sequelize.authenticate();
     console.log('✅ Connected to PostgreSQL + PostGIS via Sequelize');
@@ -49,7 +57,7 @@ export const sequelize = new Sequelize(
     console.error('❌ PostgreSQL connection error:', error);
     process.exit(1);
   }
-})();
+*/
 
 // Configure Winston logger
 const logger = winston.createLogger({
