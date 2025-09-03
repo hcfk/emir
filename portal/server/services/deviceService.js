@@ -1,5 +1,5 @@
 // services/deviceService.js
-import DeviceModel from '../models/device.js';
+import DeviceModel from '../models/Device.js';
 import logger from '../utils/logger.js';
 
 const registerOrUpdateDevice = async (sequelize, deviceData) => {

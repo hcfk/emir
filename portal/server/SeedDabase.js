@@ -1,14 +1,27 @@
 // server/seedDatabase.js
-import mongoose from 'mongoose';
+import { Sequelize } from 'sequelize';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import User from './models/User.js'; // ensure file extensions are included
+import UserModel from './models/User.js';
 
 dotenv.config();
 
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/vdcDB';
-await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-console.log('Connected to MongoDB');
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 5432,
+    dialect: process.env.DB_DIALECT || 'postgres',
+    logging: false,
+  }
+);
+
+await sequelize.authenticate();
+console.log('Connected to PostgreSQL');
+
+const User = UserModel(sequelize);
 
 const hashPassword = async (password) => {
   const saltRounds = 10;
@@ -19,20 +32,16 @@ const seedUsers = async () => {
   const users = [
     {
       username: 'admin',
-      password: 'qwe123',
+      password: await hashPassword('qwe123'),
       email: 'admin@visualdatacore.com',
       role: 'admin',
+      isActive: true,
     },
   ];
 
   console.log('Clearing existing users...');
-  await User.deleteMany();
-
-  for (const user of users) {
-    user.password = await hashPassword(user.password);
-  }
-
-  await User.insertMany(users);
+  await User.destroy({ where: {}, truncate: true });
+  await User.bulkCreate(users);
   console.log('User data seeded successfully.');
 };
 
@@ -43,7 +52,7 @@ const seedDatabase = async () => {
   } catch (error) {
     console.error('Error during database seeding:', error);
   } finally {
-    await mongoose.disconnect();
+    await sequelize.close();
     console.log('Database seeding completed.');
   }
 };

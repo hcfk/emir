@@ -1,8 +1,7 @@
 // routes/projectRoutes.js
 import express from 'express';
 import authMiddleware from '../middleware/authMiddleware.js';
-import ProjectModel from '../models/project.js';
-import UserModel from '../models/user.js';
+import ProjectModel from '../models/Project.js';
 import logger from '../utils/logger.js';
 
 const router = express.Router();

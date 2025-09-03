@@ -1,19 +1,18 @@
 import express from 'express'
-import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import winston from 'winston'
 import http from 'http'
 import cors from 'cors'
-import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize'
 
 
 
 // Custom imports (ensure all use `export default`)
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import notificationRoutes from './routes/notificationRoutes.js'
 import errorHandler from './middleware/errorMiddleware.js'
 
 // ===== Setup .env =====
@@ -25,7 +24,6 @@ console.log('Environment:', ENV);
 // ESModule fix for __dirname
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const uploadsDir = path.join(__dirname, 'uploads')
 
 
 
@@ -40,7 +38,7 @@ export const sequelize = new Sequelize(
     dialect: process.env.DB_DIALECT || 'postgres',
     logging: false,
   }
-);
+)
 
 // Test Sequelize connection
 (async () => {
@@ -52,14 +50,6 @@ export const sequelize = new Sequelize(
     process.exit(1);
   }
 })();
-
-
-//firebase services
-const notificationRoutes = require('./routes/notificationRoutes');
-app.use('/api/notifications', notificationRoutes);
-
-console.log('Environment:', ENV)
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/vdcDB'
 
 // Configure Winston logger
 const logger = winston.createLogger({
@@ -77,10 +67,9 @@ const logger = winston.createLogger({
   ],
 })
 
-// Ensure uploads directory exists
-
 // Init Express
 const app = express()
+app.set('sequelize', sequelize)
 
 // CORS setup
 app.use(
@@ -105,6 +94,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/users', userRoutes)
+app.use('/api/notifications', notificationRoutes)
 
 // Central error handler
 app.use((err, req, res, next) => {

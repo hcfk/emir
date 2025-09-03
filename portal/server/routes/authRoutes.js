@@ -8,7 +8,7 @@ import { registerUser, loginUser, getUserProfile } from '../controllers/userCont
 import authMiddleware from '../middleware/authMiddleware.js';
 import { validateUser } from '../middleware/validationMiddleware.js';
 import logger from '../utils/logger.js';
-import UserModel from '../models/user.js';
+import UserModel from '../models/User.js';
 
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;

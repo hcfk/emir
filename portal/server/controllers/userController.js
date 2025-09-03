@@ -1,5 +1,5 @@
 // controllers/userController.js
-import UserModel from '../models/user.js';
+import UserModel from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger.js';
