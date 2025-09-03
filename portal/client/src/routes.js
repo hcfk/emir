@@ -10,6 +10,7 @@ const UserManagement = React.lazy(() => import('./admin/userManagement'))
 const Chat = React.lazy(() => import('./talents/Chat'))
 
 const Charts = React.lazy(() => import('./views/charts/Charts'))
+const MapPage = React.lazy(() => import('./pages/MapPage'))
 
 // Icons
 
@@ -20,6 +21,7 @@ const routes = [
   { path: '/admin/passwordChange', name: 'PasswordChange', element: PasswordChange },
   { path: '/admin/userManagement', name: 'UserManagement', element: UserManagement },
   { path: '/talents/chat', name: 'Chat', element: Chat },
+  { path: '/map', name: 'Map', element: MapPage },
 ]
 
 export default routes

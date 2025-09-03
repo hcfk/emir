@@ -24,6 +24,12 @@ const _nav = [
     badge: { color: 'info', text: 'NEW' },
   },
   {
+    component: CNavItem,
+    name: 'Map',
+    to: '/map',
+    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+  },
+  {
     component: CNavGroup,
     name: 'User',
     to: '/admin',
